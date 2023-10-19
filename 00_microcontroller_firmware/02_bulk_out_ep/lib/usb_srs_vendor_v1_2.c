@@ -166,6 +166,7 @@ void usb_ep0_setup(void) {
 		0x02,     /* bmAttributes = 0x2 -> Transfer Type Bulk */
 		low(Ep1_fs), high(Ep1_fs), /* wMaxPacketSize = 8 Bytes */
 		0,        /* bInterval, only used for isochronous EP */
+        /* Endpoint Descriptors would go here */
 	};                    
 	/*** Language Descriptor ***/      
 	static const uint8_t PROGMEM lang_des[] = {
@@ -196,7 +197,7 @@ void usb_ep0_setup(void) {
 	};
 
 
-	/* add EP descriptors here... */
+	/* add EP descriptors here... - FIFO ... */
 
 	bmRequestType = UEDATX; 
 	bRequest = UEDATX; 
@@ -265,6 +266,7 @@ void usb_ep0_setup(void) {
 		}
 		break;
 		case 0x09: /* SET_CONFIGURATION 2 Phasen no data phases */
+        /* Reset eny endpoints here */
 			for(i=1; i<=Nr_eps; i++) {
 				UENUM = i;
 				CBI(UECONX, EPEN); /* Disable EP */
